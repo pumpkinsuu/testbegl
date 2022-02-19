@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/',
-    body().isArray(),
-    body('*.username').isString(),
-    body('*.email').isEmail(),
-    body('*.birthdate').isDate(),
+    body().isArray().isLength({ min: 1 }).withMessage('must be list'),
+    body('*.username').trim().escape().not().isEmpty().withMessage('empty'),
+    body('*.email').isEmail().normalizeEmail().withMessage('invalid email'),
+    body('*.birthdate').isDate().withMessage('invalid date'),
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
