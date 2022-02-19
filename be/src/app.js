@@ -16,9 +16,9 @@ app.use(cors());
 
 app.use(async (req, res, next) => {
     if (!req.headers['authorization'])
-        return res.status(403).json({ error: 'Unauthorized' });
+        return res.status(403).json({ error: 'unauthorized' });
     if (req.headers['authorization'] !== 'api_key')
-        return res.status(401).json({ error: 'Authorization failed' })
+        return res.status(401).json({ error: 'authorization failed' })
 
     req.context = {
         User,
@@ -29,7 +29,7 @@ app.use(async (req, res, next) => {
 app.use('/users', require('./routes/user'));
 
 app.use((req, res, next) => {
-    res.status(404).json({ error: 'Not found' });
+    res.status(404).json({ error: 'not found' });
 });
 
 const connect = async () => {
