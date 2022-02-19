@@ -10,10 +10,10 @@ export default function UpdateButton({data, setData, oldData, setOldData}) {
         }
         if (updateData.length !== 0) {
             UpdateData(updateData).then(res => {
-                if (res.error) {
-                    alert(res.error);
-                } else {
+                if (res.message) {
                     alert(res.message);
+                } else {
+                    alert(JSON.stringify(res));
                 }
                 GetData().then(users => {
                     setData(users);
